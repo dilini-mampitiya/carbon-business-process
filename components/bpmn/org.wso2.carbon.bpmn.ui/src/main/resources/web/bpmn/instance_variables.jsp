@@ -41,10 +41,13 @@
     BPMNInstance bpmnInstance;
     BPMNVariable[] variables;
 
+    String tableHeaders[] = {"Key", "Name", "Assignee", "Description", "Category", "Due Date", "Form Key", "Owner",
+            "Priority", "Skip", "Candidate Group Ids", "Candidate User Ids"};
     String instanceId = CharacterEncoder.getSafeText(request.getParameter("instanceID"));
-
+    String taskDefinitions[][];
     try {
         client = new WorkflowServiceClient(cookie, serverURL, configContext);
+        taskDefinitions = client.getCurrentTaskInformation(instanceId);
         bpmnInstance = client.getProcessInstanceById(instanceId);
         variables = bpmnInstance.getVariables();
     } catch (Exception e) {
@@ -130,6 +133,33 @@
                 <% } else { %>
                 <td><fmt:message key="error.loading.image"/></td>
                 <% } %>
+            </tr>
+            </tbody>
+        </table>
+        <br><br>
+            <%--this table will show the information of the current task of an active bpmn process instance.--%>
+        <table class="styledLeft" id="outerTaskTable">
+            <thead>
+            <tr>
+                <th width="100%">Information of the current task(s)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <table style="width: 100%;" id="taskTable">
+                        <%for(int i=0; i<taskDefinitions.length; i++){%>
+                        <%for (int j = 0; j < 12; j++) {%>
+                        <%if(taskDefinitions[i][j] != null){%>
+                        <tr>
+                            <th style="border: 1px solid #cccccc; background-color:#cccccc; font-weight:normal; height:22px;" width="30%"><strong><%=tableHeaders[j]%></strong></th>
+                            <td style="border: 1px solid #cccccc; vertical-align: middle; height:24px;" width="70%"><%=taskDefinitions[i][j]%></td>
+                        </tr>
+                        <%}%>
+                        <%}%>
+                        <%}%>
+                    </table>
+                </td>
             </tr>
             </tbody>
         </table>
