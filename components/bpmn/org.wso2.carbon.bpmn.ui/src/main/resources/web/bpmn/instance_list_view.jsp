@@ -479,6 +479,7 @@
                 </tbody>
             </table>
             <br/>
+
             <carbon:paginator pageNumber="<%=currentPage%>" numberOfPages="<%=numberOfPages%>"
                               page="instance_list_view.jsp" pageNumberParameterName="pageNumber"
                               resourceBundle="org.wso2.carbon.bpmn.ui.i18n.Resources"

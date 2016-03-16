@@ -17,7 +17,6 @@
 
 package org.wso2.carbon.bpmn.core.internal;
 
-import org.activiti.engine.ProcessEngines;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.osgi.framework.BundleContext;
@@ -57,7 +56,6 @@ public class BPMNServiceComponent {
             bpmnEngineService.setProcessEngine(ActivitiEngineBuilder.getProcessEngine());
             bundleContext.registerService(BPMNEngineService.class, bpmnEngineService, null);
             bundleContext.registerService(WaitBeforeShutdownObserver.class, new BPMNEngineShutdown(), null);
-
 
 //            DataSourceHandler dataSourceHandler = new DataSourceHandler();
 //            dataSourceHandler.initDataSource(activitiEngineBuilder.getDataSourceJndiName());
